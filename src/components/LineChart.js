@@ -8,6 +8,7 @@ export default class LineChart extends React.Component {
       chartArray: ["bitcoin", "ethereum"]
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleClickChartSelection = this.handleClickChartSelection.bind(this);
   }
 
   handleClick() {
@@ -16,13 +17,26 @@ export default class LineChart extends React.Component {
     });
   }
 
+  handleClickChartSelection(coin) {
+    console.log("click " + coin);
+    fetch(`https://api.coincap.io/v2/assets/${coin}/history?interval=m1`)
+      .then(response => response.json())
+      .then(data => console.log(data));
+  }
+
   render() {
     console.log(this.props.chartList);
     console.log(this.state.chartArray);
     const dropdownList = [];
     for (let i = 0; i < this.state.chartArray.length; i++) {
       dropdownList.push(
-        <li className="dropdown-item click" key={i}>
+        <li
+          className="dropdown-item click"
+          onClick={() =>
+            this.handleClickChartSelection(this.state.chartArray[i])
+          }
+          key={i}
+        >
           {this.state.chartArray[i].toUpperCase()}
         </li>
       );
