@@ -1,0 +1,61 @@
+{
+  "title": "Crytick",
+  "name": "cypto-tracker",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server/server.js",
+    "heroku-postbuild": "npm run build:prod",
+    "serve": "live-server",
+    "build": "webpack --watch",
+    "build:prod": "webpack -p --env production"
+  },
+  "description": "A real time crypto currency ticker",
+  "keywords": [
+    "css",
+    "sass",
+    "html",
+    "responsive",
+    "theme",
+    "template",
+    "admin",
+    "app"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "5.10.2",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "bootstrap": "4.3.1",
+    "chart.js": "2.8.0",
+    "datatables.net-bs4": "1.10.19",
+    "express": "^4.17.1",
+    "jquery": "3.4.1",
+    "jquery.easing": "^1.4.1",
+    "live-server": "^1.2.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-websocket": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "browser-sync": "2.26.7",
+    "del": "5.1.0",
+    "gulp": "4.0.2",
+    "gulp-autoprefixer": "7.0.0",
+    "gulp-clean-css": "4.2.0",
+    "gulp-header": "2.0.9",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "1.4.0",
+    "gulp-sass": "4.0.2",
+    "gulp-uglify": "3.0.2",
+    "merge-stream": "2.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "main": "index.js"
+}
