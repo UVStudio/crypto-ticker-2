@@ -1,11 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import Chart from "./Chart";
 
 export default class LineChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chartArray: ["bitcoin", "ethereum"]
+      chartArray: ["bitcoin", "ethereum"],
+      chartData: {}
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleClickChartSelection = this.handleClickChartSelection.bind(this);
@@ -18,15 +19,41 @@ export default class LineChart extends React.Component {
   }
 
   handleClickChartSelection(coin) {
-    console.log("click " + coin);
+    const fullChartData = [],
+      fullChartDataTime = [],
+      fullChartDataTimeConverted = [],
+      fullChartDataPrice = [];
     fetch(`https://api.coincap.io/v2/assets/${coin}/history?interval=m1`)
       .then(response => response.json())
-      .then(data => console.log(data));
+      .then(data => {
+        // console.log(data);
+        for (let i = 0; i < 30; i++) {
+          fullChartData.push(data.data[i]);
+          fullChartDataTime.push(data.data[i].time);
+          fullChartDataPrice.push(data.data[i].priceUsd);
+          console.log(fullChartData);
+          // console.log(fullChartDataTime);
+          // console.log(fullChartDataPrice);
+        }
+        this.setState({
+          chartData: {
+            labels: fullChartDataTime,
+            datasets: [
+              {
+                label: " Price",
+                data: fullChartDataPrice,
+                backgroundColor: ["green"]
+              }
+            ]
+          }
+        });
+      });
+    document.getElementById(
+      "currentlyDisplaying"
+    ).innerHTML = `Currently Displaying: ${coin.toUpperCase()}`;
   }
 
   render() {
-    console.log(this.props.chartList);
-    console.log(this.state.chartArray);
     const dropdownList = [];
     for (let i = 0; i < this.state.chartArray.length; i++) {
       dropdownList.push(
@@ -50,8 +77,9 @@ export default class LineChart extends React.Component {
               class="btn btn-primary"
               onClick={this.handleClick}
             >
-              Update Charts
+              Update Charts Options
             </button>
+            <div id="currentlyDisplaying"></div>
             <div className="dropdown no-arrow">
               <a
                 className="dropdown-toggle"
@@ -79,7 +107,7 @@ export default class LineChart extends React.Component {
           </div>
           <div className="card-body">
             <div className="chart-area">
-              <canvas id="myAreaChart"></canvas>
+              <Chart chartData={this.state.chartData} />
             </div>
           </div>
         </div>

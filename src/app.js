@@ -92,7 +92,7 @@ class Content extends React.Component {
               className="btn btn-primary"
               onClick={this.handleClick}
             >
-              Add: {this.state.fromChild}
+              Add: {this.state.fromChild.toUpperCase()}
             </button>
           </div>
           <Reports

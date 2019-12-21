@@ -63,7 +63,7 @@ var myLineChart = new Chart(ctx, {
         pointBorderWidth: 2,
         data: [
           0,
-          10000,
+          40000,
           5000,
           15000,
           10000,

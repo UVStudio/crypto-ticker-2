@@ -1,8 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
 
 import PieChart from "./PieChart";
 import LineChart from "./LineChart";
+
+// import { test } from "./LineChart";
+// console.log(test);
 
 export default class TwoCharts extends React.Component {
   render() {
