@@ -6,10 +6,15 @@ export default class LineChart extends React.Component {
     super(props);
     this.state = {
       chartArray: ["bitcoin", "ethereum"],
-      chartData: {}
+      chartData: {},
+      chartInterval: "m1"
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleClickChartSelection = this.handleClickChartSelection.bind(this);
+    this.dateFormat = this.dateFormat.bind(this);
+    this.handleClickIntervalMin = this.handleClickIntervalMin.bind(this);
+    this.handleClickIntervalHour = this.handleClickIntervalHour.bind(this);
+    this.handleClickIntervalDay = this.handleClickIntervalDay.bind(this);
   }
 
   handleClick() {
@@ -18,26 +23,50 @@ export default class LineChart extends React.Component {
     });
   }
 
+  dateFormat(stamp) {
+    const myDate = new Date(stamp);
+    const myAbbrevDate = myDate.format("H:i:s");
+    return myAbbrevDate;
+  }
+
+  handleClickIntervalMin() {
+    this.setState({
+      chartInterval: "m1"
+    });
+  }
+  handleClickIntervalHour() {
+    console.log("hour");
+    this.setState({
+      chartInterval: "h1"
+    });
+  }
+  handleClickIntervalDay() {
+    this.setState({
+      chartInterval: "d1"
+    });
+  }
+
   handleClickChartSelection(coin) {
     const fullChartData = [],
       fullChartDataTime = [],
-      fullChartDataTimeConverted = [],
       fullChartDataPrice = [];
-    fetch(`https://api.coincap.io/v2/assets/${coin}/history?interval=m1`)
+    fetch(
+      `https://api.coincap.io/v2/assets/${coin}/history?interval=${this.state.chartInterval}`
+    )
       .then(response => response.json())
       .then(data => {
-        // console.log(data);
-        for (let i = 0; i < 30; i++) {
+        for (let i = data.data.length - 30; i < data.data.length; i++) {
           fullChartData.push(data.data[i]);
           fullChartDataTime.push(data.data[i].time);
           fullChartDataPrice.push(data.data[i].priceUsd);
-          console.log(fullChartData);
-          // console.log(fullChartDataTime);
-          // console.log(fullChartDataPrice);
         }
+        fullChartDataTime.forEach(time => this.dateFormat(time));
+        const fullChartDataTimeConverted = fullChartDataTime.map(time =>
+          this.dateFormat(time)
+        );
         this.setState({
           chartData: {
-            labels: fullChartDataTime,
+            labels: fullChartDataTimeConverted,
             datasets: [
               {
                 label: " Price",
@@ -99,8 +128,29 @@ export default class LineChart extends React.Component {
                 <div className="dropdown-header">Pick a chart</div>
                 {dropdownList}
                 <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">
-                  Something else here
+                <a
+                  className="dropdown-item"
+                  id="m1"
+                  onClick={this.handleClickIntervalMin}
+                  href="#"
+                >
+                  1 minute
+                </a>
+                <a
+                  className="dropdown-item"
+                  id="h1"
+                  onClick={this.handleClickIntervalHour}
+                  href="#"
+                >
+                  1 hour
+                </a>
+                <a
+                  className="dropdown-item"
+                  id="d1"
+                  onClick={this.handleClickIntervalDay}
+                  href="#"
+                >
+                  1 day
                 </a>
               </div>
             </div>
