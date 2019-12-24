@@ -7,7 +7,8 @@ export default class LineChart extends React.Component {
     this.state = {
       chartArray: ["bitcoin", "ethereum"],
       chartData: {},
-      chartInterval: "m1"
+      chartInterval: "m1",
+      chartCoin: ""
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleClickChartSelection = this.handleClickChartSelection.bind(this);
@@ -29,13 +30,18 @@ export default class LineChart extends React.Component {
     return myAbbrevDate;
   }
 
+  dateFormatDay(stamp) {
+    const myDate = new Date(stamp);
+    const myAbbrevDate = myDate.format("d-m-Y");
+    return myAbbrevDate;
+  }
+
   handleClickIntervalMin() {
     this.setState({
       chartInterval: "m1"
     });
   }
   handleClickIntervalHour() {
-    console.log("hour");
     this.setState({
       chartInterval: "h1"
     });
@@ -50,6 +56,7 @@ export default class LineChart extends React.Component {
     const fullChartData = [],
       fullChartDataTime = [],
       fullChartDataPrice = [];
+    let fullChartDataTimeConverted = [];
     fetch(
       `https://api.coincap.io/v2/assets/${coin}/history?interval=${this.state.chartInterval}`
     )
@@ -60,11 +67,17 @@ export default class LineChart extends React.Component {
           fullChartDataTime.push(data.data[i].time);
           fullChartDataPrice.push(data.data[i].priceUsd);
         }
-        fullChartDataTime.forEach(time => this.dateFormat(time));
-        const fullChartDataTimeConverted = fullChartDataTime.map(time =>
-          this.dateFormat(time)
-        );
+        if (fullChartDataTime[29] - fullChartDataTime[0] == 2505600000) {
+          fullChartDataTimeConverted = fullChartDataTime.map(time =>
+            this.dateFormatDay(time)
+          );
+        } else {
+          fullChartDataTimeConverted = fullChartDataTime.map(time =>
+            this.dateFormat(time)
+          );
+        }
         this.setState({
+          chartCoin: coin,
           chartData: {
             labels: fullChartDataTimeConverted,
             datasets: [
@@ -131,7 +144,12 @@ export default class LineChart extends React.Component {
                 <a
                   className="dropdown-item"
                   id="m1"
-                  onClick={this.handleClickIntervalMin}
+                  onClick={() => {
+                    this.handleClickIntervalMin();
+                    setTimeout(() => {
+                      this.handleClickChartSelection(this.state.chartCoin);
+                    }, 1);
+                  }}
                   href="#"
                 >
                   1 minute
@@ -139,7 +157,12 @@ export default class LineChart extends React.Component {
                 <a
                   className="dropdown-item"
                   id="h1"
-                  onClick={this.handleClickIntervalHour}
+                  onClick={() => {
+                    this.handleClickIntervalHour();
+                    setTimeout(() => {
+                      this.handleClickChartSelection(this.state.chartCoin);
+                    }, 1);
+                  }}
                   href="#"
                 >
                   1 hour
@@ -147,7 +170,12 @@ export default class LineChart extends React.Component {
                 <a
                   className="dropdown-item"
                   id="d1"
-                  onClick={this.handleClickIntervalDay}
+                  onClick={() => {
+                    this.handleClickIntervalDay();
+                    setTimeout(() => {
+                      this.handleClickChartSelection(this.state.chartCoin);
+                    }, 1);
+                  }}
                   href="#"
                 >
                   1 day
