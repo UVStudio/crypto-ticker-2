@@ -14,7 +14,7 @@ const topCryptos = [
   "ethereum",
   "ripple",
   "tether",
-  "bitcoin-coin",
+  "bitcoin-cash",
   "litecoin",
   "eos"
 ];

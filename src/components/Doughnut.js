@@ -6,10 +6,10 @@ export default class Chart extends React.Component {
     super(props);
     this.state = {
       Data: {
-        labels: ["Bitcoin", "Ethereum", "Ripple"],
+        labels: ["Bitcoin", "Ethereum", "Ripple", "Tether", "bitcoin-cash"],
         datasets: [
           {
-            data: [131224951439, 13731791106, 8228946966],
+            data: [],
             backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc"],
             hoverBackgroundColor: ["#2e59d9", "#17a673", "#2c9faf"],
             hoverBorderColor: "rgba(234, 236, 244, 1)"
@@ -38,32 +38,32 @@ export default class Chart extends React.Component {
 
   componentDidMount() {
     const topThreeCapArray = [];
-    let topThreeCapArraySum = [];
     let num;
     fetch("https://api.coincap.io/v2/assets")
       .then(response => response.json())
       //.then(data => console.log(data))
       .then(data => {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 5; i++) {
           num = parseInt(data.data[i].marketCapUsd);
           topThreeCapArray.push(num);
-          topThreeCapArraySum = topThreeCapArray.reduce((acc, cur) => {
-            return acc + cur;
-          }, 0);
         }
-        console.log(topThreeCapArray);
-        // const test = parseInt(topThreeCapArray[0]);
-        // console.log(test);
-        console.log(topThreeCapArraySum);
         this.setState({
           Data: {
-            labels: [data.data[0].id, data.data[1].id, data.data[2].id],
+            labels: [
+              data.data[0].id,
+              data.data[1].id,
+              data.data[2].id,
+              data.data[3].id,
+              data.data[4].id
+            ],
             datasets: [
               {
                 data: [
                   data.data[0].marketCapUsd,
                   data.data[1].marketCapUsd,
-                  data.data[2].marketCapUsd
+                  data.data[2].marketCapUsd,
+                  data.data[3].marketCapUsd,
+                  data.data[4].marketCapUsd
                 ]
               }
             ]
