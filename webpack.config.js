@@ -16,10 +16,10 @@ module.exports = {
         exclude: /node_modules/
       }
     ]
-  }
+  },
   // mode: "production",
   // performance: {
   //   hints: false
   //},
-  //devtool: "cheap-module-eval-source-map"
+  devtool: "cheap-module-eval-source-map"
 };

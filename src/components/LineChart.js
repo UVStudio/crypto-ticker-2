@@ -84,7 +84,7 @@ export default class LineChart extends React.Component {
               {
                 label: " Price",
                 data: fullChartDataPrice,
-                backgroundColor: ["green"]
+                backgroundColor: ["#f6c23e"]
               }
             ]
           }
@@ -92,7 +92,7 @@ export default class LineChart extends React.Component {
       });
     document.getElementById(
       "currentlyDisplaying"
-    ).innerHTML = `Currently Displaying: ${coin.toUpperCase()}`;
+    ).innerHTML = `${coin.toUpperCase()}`;
   }
 
   render() {

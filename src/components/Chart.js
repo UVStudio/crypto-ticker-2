@@ -1,5 +1,5 @@
 import React from "react";
-import { Bar, Line, Doughnut } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 
 export default class Chart extends React.Component {
   constructor(props) {
