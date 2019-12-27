@@ -119,7 +119,7 @@ export default class LineChart extends React.Component {
               class="btn btn-primary"
               onClick={this.handleClick}
             >
-              Update Charts Options
+              Update Chart Options
             </button>
             <div id="currentlyDisplaying"></div>
             <div className="dropdown no-arrow">

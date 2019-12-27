@@ -39,6 +39,7 @@ export default class Reports extends React.Component {
             this.state.currencies[i].price = priceStream;
           }
         }
+        //console.log(this.state.currencies);
         this.setState({ currencies: this.state.currencies });
       };
     });

@@ -6,12 +6,12 @@ export default class Chart extends React.Component {
     super(props);
     this.state = {
       Data: {
-        labels: ["Bitcoin", "Ethereum", "Ripple", "Tether", "bitcoin-cash"],
+        labels: [],
         datasets: [
           {
             data: [],
-            backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc"],
-            hoverBackgroundColor: ["#2e59d9", "#17a673", "#2c9faf"],
+            backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc", "#F5B98C"],
+            hoverBackgroundColor: ["#2e59d9", "#17a673", "#2c9faf", "#DEB485"],
             hoverBorderColor: "rgba(234, 236, 244, 1)"
           }
         ]
@@ -53,8 +53,7 @@ export default class Chart extends React.Component {
               data.data[0].id,
               data.data[1].id,
               data.data[2].id,
-              data.data[3].id,
-              data.data[4].id
+              data.data[3].id
             ],
             datasets: [
               {
@@ -62,8 +61,7 @@ export default class Chart extends React.Component {
                   data.data[0].marketCapUsd,
                   data.data[1].marketCapUsd,
                   data.data[2].marketCapUsd,
-                  data.data[3].marketCapUsd,
-                  data.data[4].marketCapUsd
+                  data.data[3].marketCapUsd
                 ]
               }
             ]
