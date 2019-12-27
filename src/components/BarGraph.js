@@ -7,20 +7,29 @@ export default class BarGraph extends React.Component {
     this.state = {
       markets: [
         {
-          name: "test",
-          marketshare: null
+          name: "loading...",
+          marketshare: null,
+          color: ""
         },
         {
-          name: "test",
-          marketshare: null
+          name: "loading...",
+          marketshare: null,
+          color: ""
         },
         {
-          name: "test",
-          marketshare: null
+          name: "loading...",
+          marketshare: null,
+          color: ""
         },
         {
-          name: "test",
-          marketshare: null
+          name: "loading...",
+          marketshare: null,
+          color: ""
+        },
+        {
+          name: "loading...",
+          marketshare: null,
+          color: ""
         }
       ]
     };
@@ -34,38 +43,51 @@ export default class BarGraph extends React.Component {
         for (let i = 0; i < 4; i++) {
           exchanges.push(data.data[i]);
         }
+        let sum = 0;
+        console.log(exchanges);
+        for (let i = 0; i < exchanges.length; i++) {
+          sum += parseFloat(exchanges[i].percentTotalVolume);
+        }
         this.setState({
           markets: [
             {
               name: exchanges[0].name,
               marketshare: parseFloat(exchanges[0].percentTotalVolume).toFixed(
                 2
-              )
+              ),
+              color: "primary"
             },
             {
               name: exchanges[1].name,
               marketshare: parseFloat(exchanges[1].percentTotalVolume).toFixed(
                 2
-              )
+              ),
+              color: "success"
             },
             {
               name: exchanges[2].name,
               marketshare: parseFloat(exchanges[2].percentTotalVolume).toFixed(
                 2
-              )
+              ),
+              color: "warning"
             },
             {
               name: exchanges[3].name,
               marketshare: parseFloat(exchanges[3].percentTotalVolume).toFixed(
                 2
-              )
+              ),
+              color: "info"
+            },
+            {
+              name: "total of other exchanges",
+              marketshare: (100 - sum).toFixed(2),
+              color: "secondary"
             }
           ]
         });
       });
   }
   render() {
-    //console.log(this.state.markets[1].name);
     return (
       <div className="col-lg-6 mb-4">
         <div className="card shadow mb-4">
@@ -75,27 +97,26 @@ export default class BarGraph extends React.Component {
             </h6>
           </div>
           <div className="card-body">
-            <div className="bar">
-              <h4 className="small font-weight-bold">
-                {this.state.markets[0].name}
-                <span className="float-right">
-                  {this.state.markets[0].marketshare} %
-                </span>
-              </h4>
-              <div className="progress mb-4">
-                <div
-                  className="progress-bar bg-danger"
-                  role="progressbar"
-                  style={{ width: this.state.markets[0].marketshare + "%" }}
-                  aria-valuenow={this.state.markets[0].marketshare}
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-            <Bar market={this.state.markets[1]} />
-            <Bar market={this.state.markets[2]} />
-            <Bar market={this.state.markets[3]} />
+            <Bar
+              market={this.state.markets[0]}
+              color={this.state.markets[0].color}
+            />
+            <Bar
+              market={this.state.markets[1]}
+              color={this.state.markets[1].color}
+            />
+            <Bar
+              market={this.state.markets[2]}
+              color={this.state.markets[2].color}
+            />
+            <Bar
+              market={this.state.markets[3]}
+              color={this.state.markets[3].color}
+            />
+            <Bar
+              market={this.state.markets[4]}
+              color={this.state.markets[4].color}
+            />
           </div>
         </div>
       </div>

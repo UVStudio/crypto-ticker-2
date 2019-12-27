@@ -2,6 +2,7 @@ import React from "react";
 
 export default class Bar extends React.Component {
   render() {
+    let colorName = "progress-bar bg-" + this.props.color;
     return (
       <div className="bar">
         <h4 className="small font-weight-bold">
@@ -10,7 +11,7 @@ export default class Bar extends React.Component {
         </h4>
         <div className="progress mb-4">
           <div
-            className="progress-bar bg-danger"
+            className={colorName}
             role="progressbar"
             style={{ width: this.props.market.marketshare + "%" }}
             aria-valuenow={this.props.market.marketshare}
