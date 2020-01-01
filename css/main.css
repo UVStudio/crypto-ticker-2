@@ -5,3 +5,9 @@
 .chart-area {
   height: 100%;
 }
+
+@media (min-width: 768px) {
+  .navCustom {
+    width: 25em;
+  }
+}

@@ -94,7 +94,7 @@ export default class SearchForm extends React.Component {
       <div>
         <form
           onSubmit={this.handleSubmit}
-          className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search  dropdown"
+          className="mr-auto ml-md-3 my-2 my-md-0 mw-100 navCustom dropdown"
         >
           <div className="input-group">
             <input
