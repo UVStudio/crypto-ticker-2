@@ -88,7 +88,7 @@ export default class LineChart extends React.Component {
                 backgroundColor: "#f6c23e",
                 borderColor: "#949492",
                 borderWidth: 1.5,
-                pointBackgroundColor: "#0083F9"
+                pointBackgroundColor: "#4e73df"
               }
             ]
           }

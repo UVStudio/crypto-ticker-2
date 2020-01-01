@@ -1,3 +1,7 @@
 .click {
   cursor: pointer;
 }
+
+.chart-area {
+  height: 100%;
+}
