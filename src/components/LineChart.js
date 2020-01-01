@@ -6,7 +6,9 @@ export default class LineChart extends React.Component {
     super(props);
     this.state = {
       chartArray: ["bitcoin", "ethereum"],
-      chartData: {},
+      chartData: {
+        type: "bar"
+      },
       chartInterval: "m1",
       chartCoin: ""
     };
@@ -52,6 +54,49 @@ export default class LineChart extends React.Component {
     });
   }
 
+  componentDidMount() {
+    const fullChartData = [],
+      fullChartDataTime = [],
+      fullChartDataPrice = [];
+    let fullChartDataTimeConverted = [];
+    fetch(`https://api.coincap.io/v2/assets/bitcoin/history?interval=m1`)
+      .then(response => response.json())
+      .then(data => {
+        for (let i = data.data.length - 30; i < data.data.length; i++) {
+          fullChartData.push(data.data[i]);
+          fullChartDataTime.push(data.data[i].time);
+          fullChartDataPrice.push(data.data[i].priceUsd);
+        }
+        if (fullChartDataTime[29] - fullChartDataTime[0] == 2505600000) {
+          fullChartDataTimeConverted = fullChartDataTime.map(time =>
+            this.dateFormatDay(time)
+          );
+        } else {
+          fullChartDataTimeConverted = fullChartDataTime.map(time =>
+            this.dateFormat(time)
+          );
+        }
+        this.setState({
+          chartCoin: "bitcoin",
+          chartData: {
+            type: "line",
+            labels: fullChartDataTimeConverted,
+            datasets: [
+              {
+                label: " Price",
+                data: fullChartDataPrice,
+                backgroundColor: "#f6c23e",
+                borderColor: "#949492",
+                borderWidth: 1.5,
+                pointBackgroundColor: "#0083F9"
+              }
+            ]
+          }
+        });
+      });
+    document.getElementById("currentlyDisplaying").innerHTML = `BITCOIN`;
+  }
+
   handleClickChartSelection(coin) {
     const fullChartData = [],
       fullChartDataTime = [],
@@ -79,6 +124,7 @@ export default class LineChart extends React.Component {
         this.setState({
           chartCoin: coin,
           chartData: {
+            type: "line",
             labels: fullChartDataTimeConverted,
             datasets: [
               {

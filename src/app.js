@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import Footer from "./components/Footer";
 import BarIllustrations from "./components/BarIllustrations";
 import TwoCharts from "./components/TwoCharts";
-import Reports from "./components/Reports";
+import Tickers from "./components/Tickers";
 import ScrollToTop from "./components/ScrollToTop";
 import SearchForm from "./components/SearchForm";
 
@@ -12,9 +12,9 @@ class Content extends React.Component {
   constructor() {
     super();
     this.handleData = this.handleData.bind(this);
-    this.handleDataReports = this.handleDataReports.bind(this);
+    this.handleDataTickers = this.handleDataTickers.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.reportsElement = React.createRef();
+    this.tickersElement = React.createRef();
     this.state = {
       fromChild: "",
       chartArray: ""
@@ -27,17 +27,17 @@ class Content extends React.Component {
     });
   }
 
-  handleDataReports(dataReports) {
+  handleDataTickers(dataTickers) {
     this.setState(
       {
-        chartArray: dataReports
+        chartArray: dataTickers
       },
       () => console.log(this.state.chartArray)
     );
   }
 
   handleClick() {
-    this.reportsElement.current.addTracker(this.state.fromChild);
+    this.tickersElement.current.addTicker(this.state.fromChild);
   }
 
   render() {
@@ -80,13 +80,17 @@ class Content extends React.Component {
                 </form>
               </div>
             </li>
-            <h5 className="mr-2 d-none d-lg-inline text-gray-600">Cryptick</h5>
+            <h5 className="mr-2 d-none d-lg-inline text-gray-600">
+              Cryptick - <em className="h6">beta</em>
+            </h5>
           </ul>
         </nav>
 
         <div className="container-fluid">
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
+            <h1 className="h3 mb-0 text-gray-800">
+              Real-Time Cryptocurrency Tickers
+            </h1>
             <button
               type="button"
               className="btn btn-primary"
@@ -95,10 +99,10 @@ class Content extends React.Component {
               Add: {this.state.fromChild.toUpperCase()}
             </button>
           </div>
-          <Reports
+          <Tickers
             crypto={this.state.fromChild}
-            ref={this.reportsElement}
-            chartList={this.handleDataReports}
+            ref={this.tickersElement}
+            chartList={this.handleDataTickers}
           />
           <TwoCharts chartList={this.state.chartArray} />
           <BarIllustrations />

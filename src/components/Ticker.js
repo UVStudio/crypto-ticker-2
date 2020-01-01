@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class Tracker extends React.Component {
+export default class Ticker extends React.Component {
   render() {
     const { id, name, price } = this.props.crypto;
     return (
@@ -26,7 +26,7 @@ export default class Tracker extends React.Component {
                 type="button"
                 className="close"
                 aria-label="Close"
-                onClick={this.props.closeTracker.bind(this, id)}
+                onClick={this.props.closeTicker.bind(this, id)}
               >
                 <span aria-hidden="true">&times;</span>
               </button>

@@ -1,5 +1,5 @@
 import React from "react";
-import Tracker from "./Tracker";
+import Ticker from "./Ticker";
 
 //Reports - real time crypto updates
 export default class Reports extends React.Component {
@@ -20,7 +20,7 @@ export default class Reports extends React.Component {
       ]
     };
 
-    this.closeTracker = this.closeTracker.bind(this);
+    this.closeTicker = this.closeTicker.bind(this);
   }
 
   componentDidMount() {
@@ -45,7 +45,7 @@ export default class Reports extends React.Component {
     });
   }
 
-  closeTracker(id) {
+  closeTicker(id) {
     this.setState({
       currencies: this.state.currencies.filter(currency => {
         return currency.id !== id;
@@ -53,7 +53,7 @@ export default class Reports extends React.Component {
     });
   }
 
-  addTracker(name) {
+  addTicker(name) {
     const currNames = [];
     const newCurrencies = this.state.currencies.concat({
       id: undefined,
@@ -86,10 +86,10 @@ export default class Reports extends React.Component {
     return (
       <div className="row">
         {this.state.currencies.map(currency => (
-          <Tracker
+          <Ticker
             key={currency.id}
             crypto={currency}
-            closeTracker={this.closeTracker}
+            closeTicker={this.closeTicker}
           />
         ))}
       </div>

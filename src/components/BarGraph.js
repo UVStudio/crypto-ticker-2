@@ -30,6 +30,11 @@ export default class BarGraph extends React.Component {
           name: "loading...",
           marketshare: null,
           color: ""
+        },
+        {
+          name: "loading...",
+          marketshare: null,
+          color: ""
         }
       ]
     };
@@ -38,15 +43,13 @@ export default class BarGraph extends React.Component {
     let exchanges = [];
     fetch("https://api.coincap.io/v2/exchanges")
       .then(response => response.json())
-      //.then(data => console.log(data))
       .then(data => {
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 5; i++) {
           exchanges.push(data.data[i]);
         }
-        let sum = 0;
-        console.log(exchanges);
+        let totalPercent = 0;
         for (let i = 0; i < exchanges.length; i++) {
-          sum += parseFloat(exchanges[i].percentTotalVolume);
+          totalPercent += parseFloat(exchanges[i].percentTotalVolume);
         }
         this.setState({
           markets: [
@@ -79,8 +82,15 @@ export default class BarGraph extends React.Component {
               color: "info"
             },
             {
+              name: exchanges[4].name,
+              marketshare: parseFloat(exchanges[4].percentTotalVolume).toFixed(
+                2
+              ),
+              color: "danger"
+            },
+            {
               name: "total of other exchanges",
-              marketshare: (100 - sum).toFixed(2),
+              marketshare: (100 - totalPercent).toFixed(2),
               color: "secondary"
             }
           ]
@@ -93,30 +103,13 @@ export default class BarGraph extends React.Component {
         <div className="card shadow mb-4">
           <div className="card-header py-3">
             <h6 className="m-0 font-weight-bold text-primary">
-              Crypto Exchanges Market Shares
+              Crypto Exchanges Marketshares
             </h6>
           </div>
           <div className="card-body">
-            <Bar
-              market={this.state.markets[0]}
-              color={this.state.markets[0].color}
-            />
-            <Bar
-              market={this.state.markets[1]}
-              color={this.state.markets[1].color}
-            />
-            <Bar
-              market={this.state.markets[2]}
-              color={this.state.markets[2].color}
-            />
-            <Bar
-              market={this.state.markets[3]}
-              color={this.state.markets[3].color}
-            />
-            <Bar
-              market={this.state.markets[4]}
-              color={this.state.markets[4].color}
-            />
+            {this.state.markets.map(market => (
+              <Bar market={market} color={market.color} />
+            ))}
           </div>
         </div>
       </div>
